@@ -1,10 +1,12 @@
 const express = require("express");
 const userRouter = require("./route/user"); // 引入路由模块
 const goodsRouter = require("./route/goods"); // 引入路由模块
+const viewRouter = require("./route/views"); // 引入路由模块
 
 const app = express();
 
-// 增加路由
+// 静态资源表
+app.use("/static", express.static("./static"));
 
 // 挂载路由
 /**
@@ -15,8 +17,10 @@ const app = express();
  * 当使用app.use()方法时，如果第一个参数是*，那么第二个参数必须是一个函数
  * 当使用app.use()方法时，如果第一个参数不是*，那么第二个参数必须是一个路由表
  */
+
 app.use("/users", userRouter);
 app.use("/goods", goodsRouter);
+app.use("/views", viewRouter);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
