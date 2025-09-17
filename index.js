@@ -1,12 +1,22 @@
 const express = require("express");
+const cors = require("cors");
+
 const userRouter = require("./route/user"); // 引入路由模块
 const goodsRouter = require("./route/goods"); // 引入路由模块
 const viewRouter = require("./route/views"); // 引入路由模块
+const uploadRouter = require("./route/upload"); // 引入路由模块
 
 const app = express();
 
-// 静态资源表(在所有路由表挂载之前挂载)
+// 解决跨域问题
+app.use(cors());
+
+// 静态资源表(在所有路由表挂载之前挂载),用于存放静态资源
 app.use("/static", express.static("./static"));
+
+// 解析post请求的参数
+//! 或者使用body-parser中间件也可以
+app.use(express.urlencoded({ extended: false }));
 
 // 挂载路由
 /**
@@ -21,6 +31,7 @@ app.use("/static", express.static("./static"));
 app.use("/users", userRouter);
 app.use("/goods", goodsRouter);
 app.use("/views", viewRouter);
+app.use("/upload", uploadRouter);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

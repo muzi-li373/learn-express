@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3、jQuery上传</title>
+  </head>
+  <body>
+    <div>
+      <input type="file" name="file" />
+      <button id="upload">提交</button>
+    </div>
+    <script>
+      //! 第3种上传
+      $("#upload").click(function () {
+        // 获取文件
+        const file = $("#file")[0].files[0];
+        // 创建formData对象
+        const formData = new FormData();
+        // 添加文件
+        formData.append("file", file);
+        // ajax发送请求
+        $.ajax({
+          url: "/upload",
+          method: "POST",
+          data: formData,
+          processData: false, // 不处理数据
+          contentType: false, // 不设置请求头
+          success: function (res) {
+            console.log(res);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2、原生js上传文件</title>
+  </head>
+  <body>
+    <form>
+      <input type="file" name="file" />
+      <button type="submit">提交</button>
+    </form>
+    <script>
+      const form = document.querySelector("form");
+      const fileInput = document.querySelector("input[type=file]");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        // 创建formData对象，将文件添加到formData中，拿到数据
+        const formData = new FormData(form);
+        // ajax发送请求
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/upload");
+        xhr.send(formData);
+        xhr.onload = function () {
+          console.log(xhr.responseText);
+        };
+        // 文件上传成功后，清空input框中的内容
+        fileInput.value = "";
+      });
+    </script>
+  </body>
+</html>
