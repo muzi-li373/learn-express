@@ -5,7 +5,7 @@ const viewRouter = require("./route/views"); // 引入路由模块
 
 const app = express();
 
-// 静态资源表
+// 静态资源表(在所有路由表挂载之前挂载)
 app.use("/static", express.static("./static"));
 
 // 挂载路由
